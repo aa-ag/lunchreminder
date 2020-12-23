@@ -6,9 +6,12 @@ The reminder should run everyday at the same time and alert the enduser that it 
 
 Alert message will be:
 
-> "lunchtime :sandwich: #brb" [^1]\
+> "lunchtime :sandwich: #brb" <sup>1<sup>!
 
-[^1]: end goal is to share this message to slack.
+------------
+** Footnotes: **
+
+1. end goal is to share this message to slack.
 Hench, using ":sandwich:" instead of "🥪".
 
 ### Initial thoughts
