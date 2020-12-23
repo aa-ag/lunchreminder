@@ -13,9 +13,3 @@ Alert message will be:
 
 <sup>1<sup> end goal is to share this message to slack.
 Hench, using ":sandwich:" instead of "🥪".
-
-### Initial thoughts
-
-- use [`schedule`](https://schedule.readthedocs.io/en/stable/)
-
-- use Google Translate's [API](https://cloud.google.com/translate/docs/reference/rest) one time, and store all available translations locally
