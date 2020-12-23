@@ -2,6 +2,7 @@
 import schedule  # https://schedule.readthedocs.io/en/stable/
 import time
 import googletrans  # https://pypi.org/project/googletrans/
+import csv
 
 ###--- GLOBAL VARIABLES ---###
 
@@ -11,12 +12,17 @@ def translate():
     # get list of available languages
     # perform translation
     # save result in .txt
+    announcement = "lunchtime :sandwich: #brb"
+
     available_languages = googletrans.LANGUAGES  # dict
+    number_of_available_languages = len(available_languages)
 
-    print(f"API suports {len(available_languages)} languages:\n")  # 106
-
-    for i, (k, v) in enumerate(available_languages.items()):
-        print(f"{i + 1} - {k}: {v}")
+    with open(f'{number_of_available_languages}-available-languages.csv', 'w', newline='') as csvfile:
+        alwriter = csv.writer(csvfile)
+        alwriter.writerow(['number', 'iso639-1 language codes',
+                           'language name in English'])
+        alwriter.writerows((i + 1, k, v)
+                           for i, (k, v) in enumerate(available_languages.items()))
 
 
 def job():
