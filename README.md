@@ -16,6 +16,6 @@ Hench, using ":sandwich:" instead of "🥪".
 
 ### Initial thoughts
 
-- use [`schedule`](https://schedule.readthedocs.io/en/stable/) or [`sched`](https://docs.python.org/3/library/sched.html) to schedule execution
+- use [`schedule`](https://schedule.readthedocs.io/en/stable/)
 
-- use Google Translate's [API](https://cloud.google.com/translate/docs/reference/rest) either once per day, or one time, and store all available translations locally
+- use Google Translate's [API](https://cloud.google.com/translate/docs/reference/rest) one time, and store all available translations locally
