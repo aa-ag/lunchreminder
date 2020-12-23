@@ -1,46 +1,50 @@
 ###---- IMPORTS ---###
 import schedule  # https://schedule.readthedocs.io/en/stable/
 import time
-import googletrans  # https://pypi.org/project/googletrans/
 import csv
+import googletrans  # https://pypi.org/project/googletrans/
+# [!] https://stackoverflow.com/questions/52455774/googletrans-stopped-working-with-error-nonetype-object-has-no-attribute-group
+from google_trans_new import google_translator
+
 
 ###--- GLOBAL VARIABLES ---###
+translator = google_translator()
+alert = "lunchtime"
 
 
 ###--- FUNCTIONS ---###
-def translate():
+
+
+def get_available_languages():
     # get list of available languages
-    # perform translation
-    # save result in .txt
-    announcement = "lunchtime :sandwich: #brb"
+    # save result in .csv
+    global alert
+    global translator
 
     available_languages = googletrans.LANGUAGES  # dict
     number_of_available_languages = len(available_languages)
 
-    with open(f'{number_of_available_languages}-available-languages.csv', 'w', newline='') as csvfile:
+    translations = dict()
+
+    for code, language in available_languages.items():
+        translations[language] = translator.translate(alert, lang_tgt=code)
+
+    resulting_csv = f'{number_of_available_languages}-{alert}-translations.csv'
+
+    with open(resulting_csv, 'w', newline='') as csvfile:
         alwriter = csv.writer(csvfile)
-        alwriter.writerow(['number', 'iso639-1 language codes',
-                           'language name in English'])
+        alwriter.writerow(['number',
+                           'language name in English', 'alert-translation'])
+
         alwriter.writerows((i + 1, k, v)
-                           for i, (k, v) in enumerate(available_languages.items()))
+                           for i, (k, v) in enumerate(translations.items()))
 
 
-def job():
-    print("I'm working!")
-
-
-def lunchtime_alert():
-    # translate message or grab from translations
-    # alert end user
-    pass
-
-
-schedule.every(5).seconds.do(job)
 # TO DO:
-# schedule.every().day.at("11:59").do(lunchtime_alert)
+# schedule.every().day.at("11:59").do([INSERT JOB HERE])
 
 
 ###--- DRIVER CODE ---###
-# while __name__ == "__main__":
-# schedule.run_pending()
-translate()
+while __name__ == "__main__":
+    # schedule.run_pending()
+    get_available_languages()

@@ -5,6 +5,7 @@
 settings
 settings.py
 .DS_Store
+py-googletrans
 
 # Vs code
 .vscode
