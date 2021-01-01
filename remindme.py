@@ -6,17 +6,30 @@ import random
 import googletrans  # https://pypi.org/project/googletrans/
 # [!] https://stackoverflow.com/questions/52455774/googletrans-stopped-working-with-error-nonetype-object-has-no-attribute-group
 from google_trans_new import google_translator
+from flask import Flask, Response
+from slackeventsapi import SlackEventAdapter
+from threading import Thread
+from slack_sdk import WebClient
+import os
+import settings
 
+###--- APP ---###
+app = Flask(__name__)
 
 ###--- GLOBAL VARIABLES ---###
+slack_siging = os.environ[settings.SLACK_SIGNING_SECRET]
+slack_token = os.environ[settings.SLACK_BOT_TOKEN]
+slack_verification = os.environ[settings.SLACK_VERIFICATION_TOKEN]
+
 translator = google_translator()
 alert = "lunchtime"
 available_languages = googletrans.LANGUAGES  # dict
 number_of_available_languages = len(available_languages)
 
+###--- ROUTES ---###
+
 
 ###--- FUNCTIONS ---###
-
 
 def get_available_languages():
     # get list of available languages
@@ -56,7 +69,7 @@ schedule.every(3).seconds.do(alert_user)
 
 
 ###--- DRIVER CODE ---###
-get_available_languages()
+# get_available_languages()
 
 while __name__ == "__main__":
     schedule.run_pending()

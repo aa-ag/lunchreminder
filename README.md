@@ -11,5 +11,12 @@ Alert message will be:
 ------------
 ** Footnotes **
 
-<sup>1. end goal is to share this message to slack.
-Hench, using ":sandwich:" instead of "🥪".</sup>
+<sup>1.</sup><small>end goal is to share this message to slack.
+Hench, using "\:sandwich\:" instead of "🥪".</small>
+
+### Technologies
+
+- `conda install Flask`
+- `conda install slackeventsapi`
+- `conda install slack_sdk`
+- `brew install --cask ngrok`
