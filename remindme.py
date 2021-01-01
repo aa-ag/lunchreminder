@@ -11,10 +11,12 @@ from slackeventsapi import SlackEventAdapter
 from threading import Thread
 from slack_sdk import WebClient
 import os
+import json
 import settings
 
 ###--- APP ---###
 app = Flask(__name__)
+
 
 ###--- GLOBAL VARIABLES ---###
 slack_siging = os.environ[settings.SLACK_SIGNING_SECRET]
@@ -29,7 +31,27 @@ number_of_available_languages = len(available_languages)
 ###--- ROUTES ---###
 
 
+@app.route("/")
+def event_hook(request):
+    json_dictionary = json.loads(request.body.decode("utf-8"))
+    if json_dictionary["token"] != settings.SLACK_VERIFICATION_TOKEN:
+        return {"status": 403}
+
+    if "type" in json_dictionary:
+        if json_dictionary["type"] == "url_verfication":
+            response = {"challenge": json_dictionary["challenge"]}
+            return response
+        return {"status": 500}
+    return
+
+
+###--- SLACK EVENTS ADAPTER ---###
+slack_events_adapter = SlackEventAdapter(
+    settings.SLACK_SIGNING_SECRET, "/slack/events", app
+)
+
 ###--- FUNCTIONS ---###
+
 
 def get_available_languages():
     # get list of available languages
